@@ -1390,11 +1390,14 @@ void Temperature::min_temp_error(const heater_id_t heater_id) {
 
 #endif // HAS_PID_HEATING
 
+// TEMPERATURE LOOP // 
+// Si no están habilitados ni PID ni MPC, se utiliza un control simple de encendido/apagado (bang-bang) para la temperatura
 #if HAS_HOTEND
 
   float Temperature::get_pid_output_hotend(const uint8_t E_NAME) {
     const uint8_t ee = HOTEND_INDEX;
 
+    // NO APLICA PORQUE SE HA DESACTIVADO EL PID
     #if ENABLED(PIDTEMP)
 
       typedef PIDRunner<hotend_info_t, 0, PID_MAX> PIDRunnerHotend;
@@ -1411,6 +1414,8 @@ void Temperature::min_temp_error(const heater_id_t heater_id) {
           hotend_pid[ee].debug(temp_hotend[ee].celsius, pid_output, F("E"), ee);
       #endif
 
+
+    // NO APLICA PORQUE SE HA DESACTIVADO EL MPC
     #elif ENABLED(MPCTEMP)
 
       MPCHeaterInfo &hotend = temp_hotend[ee];
@@ -1491,10 +1496,37 @@ void Temperature::min_temp_error(const heater_id_t heater_id) {
         }
       //*/
 
+    // TRABAJAMOS AQUÍ CON LA SIGMA, MODO TEMPERATURA SIMPLE (BANG-BANG)
     #else // No PID or MPC enabled
 
       const bool is_idling = TERN0(HEATER_IDLE_HANDLER, heater_idle[ee].timed_out);
-      const float pid_output = (!is_idling && temp_hotend[ee].is_below_target()) ? BANG_MAX : 0;
+      float pid_output;
+
+      if (ee == 3) {
+          // Comportamiento para el extrusor 3 (alta temperatura, solo resistencia térmica - linea original)
+          pid_output = (!is_idling && temp_hotend[ee].is_below_target()) ? BANG_MAX : 0;
+      } else {
+          // Comportamiento para los extrusores 0, 1, 2 con peltier
+          if (!is_idling) {
+              if (!temp_hotend[ee].is_below_target()) {
+                  // Si está por encima del objetivo, activar Peltier
+                  pid_output = 1;
+                  switch(ee) {
+                      case 0: WRITE(29, HIGH); break;
+                      case 1: WRITE(13, HIGH); break;
+                      case 2: WRITE(14, HIGH); break;
+                  }
+              } else {
+                  // Si está por debajo del objetivo, desactivar Peltier
+                  pid_output = 0;
+                  switch(ee) {
+                      case 0: WRITE(29, LOW); break;
+                      case 1: WRITE(13, LOW); break;
+                      case 2: WRITE(14, LOW); break;
+                  }
+              }
+          }
+      }
 
     #endif
 
@@ -1502,6 +1534,8 @@ void Temperature::min_temp_error(const heater_id_t heater_id) {
   }
 
 #endif // HAS_HOTEND
+
+// TEMPERATURE LOOP //
 
 #if ENABLED(PIDTEMPBED)
 
