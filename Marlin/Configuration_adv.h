@@ -4351,3 +4351,5 @@
 
 // Report uncleaned reset reason from register r2 instead of MCUSR. Supported by Optiboot on AVR.
 //#define OPTIBOOT_RESET_REASON
+
+#define NO_AUTO_ASSIGN_WARNING  // to supress the auto-assign warning when compiling

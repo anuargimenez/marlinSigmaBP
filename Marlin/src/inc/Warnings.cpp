@@ -60,7 +60,7 @@
 #endif
 
 #if NONE(HAS_RESUME_CONTINUE, HOST_PROMPT_SUPPORT)
-  #warning "Your Configuration provides no method to acquire user feedback!"
+//  #warning "Your Configuration provides no method to acquire user feedback!"  // Supress user feedback warning
 #endif
 
 #if MB(DUE3DOM_MINI) && PIN_EXISTS(TEMP_2) && !TEMP_SENSOR_BOARD
