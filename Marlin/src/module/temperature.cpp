@@ -1507,25 +1507,24 @@ void Temperature::min_temp_error(const heater_id_t heater_id) {
           pid_output = (!is_idling && temp_hotend[ee].is_below_target()) ? BANG_MAX : 0;
       } else {
           // Comportamiento para los extrusores 0, 1, 2 con peltier
-          if (!is_idling) {
-              if (!temp_hotend[ee].is_below_target()) {
-                  // Si está por encima del objetivo, activar Peltier
-                  pid_output = 1;
-                  switch(ee) {
-                      case 0: WRITE(29, HIGH); break;
-                      case 1: WRITE(13, HIGH); break;
-                      case 2: WRITE(14, HIGH); break;
-                  }
-              } else {
-                  // Si está por debajo del objetivo, desactivar Peltier
-                  pid_output = 0;
-                  switch(ee) {
-                      case 0: WRITE(29, LOW); break;
-                      case 1: WRITE(13, LOW); break;
-                      case 2: WRITE(14, LOW); break;
-                  }
+          if (!temp_hotend[ee].is_below_target()) {
+              // Si está por encima del objetivo, activar Peltier
+              pid_output = 1;
+              switch(ee) {
+                  case 0: WRITE(63, LOW); break;
+                  case 1: WRITE(64, LOW); break;
+                  case 2: WRITE(4, LOW); break;
+              }
+          } else {
+              // Si está por debajo del objetivo, desactivar Peltier
+              pid_output = 0;
+              switch(ee) {
+                  case 0: WRITE(63, HIGH); break;
+                  case 1: WRITE(64, HIGH); break;
+                  case 2: WRITE(4, HIGH);; break;
               }
           }
+
       }
 
     #endif
