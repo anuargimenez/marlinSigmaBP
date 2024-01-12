@@ -139,7 +139,7 @@
 #if TEMP_SENSOR_3 == -1
 #define TEMP_3_PIN 7 // Analog Input (connector *K3* on RUMBA thermocouple ADD ON is used <-- this can't be used when TEMP_SENSOR_BED is defined as thermocouple)
 #else
-#define TEMP_3_PIN 11 // Analog Input (default connector for thermistor *T2* on rumba board is used)
+#define TEMP_3_PIN 12 // Analog Input (default connector for thermistor *T2* on rumba board is used)
 #endif
 
 // Optional for extruder 4 or chamber:
@@ -158,16 +158,15 @@
 //
 // Heaters / Fans
 //
-#define HEATER_0_PIN 2    // EXTRUDER 1
-#define HEATER_1_PIN 3    // EXTRUDER 2
-#define HEATER_2_PIN 6    // EXTRUDER 3
+#define HEATER_0_PIN 29    // EXTRUDER 1
+#define HEATER_1_PIN 13    // EXTRUDER 2
+#define HEATER_2_PIN 14   // EXTRUDER 3
 #define HEATER_3_PIN 9    // sigma: EXTRUDER 4
 #define HEATER_BED_PIN 30 // disabled
 
-#define FAN_PIN 7
-#define FAN1_PIN 8
-#define FAN2_PIN 5 // sigma
-#define FAN3_PIN 4 // sigma: added fan 3
+#define FAN_PIN 2
+#define FAN1_PIN 3
+#define FAN2_PIN 6 // sigma
 
 //
 // Misc. Functions
