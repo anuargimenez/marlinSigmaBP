@@ -158,11 +158,11 @@
 //
 // Heaters / Fans
 //
-#define HEATER_0_PIN 30    // EXTRUDER 1
-#define HEATER_1_PIN 15    // EXTRUDER 2
-#define HEATER_2_PIN 14   // EXTRUDER 3
+#define HEATER_0_PIN 21    // EXTRUDER 1
+#define HEATER_1_PIN 20    // EXTRUDER 2
+#define HEATER_2_PIN 63   // EXTRUDER 3
 #define HEATER_3_PIN 9    // sigma: EXTRUDER 4
-#define HEATER_BED_PIN 31 // disabled
+#define HEATER_BED_PIN 64 // disabled
 
 #define FAN_PIN 2
 #define FAN1_PIN 3

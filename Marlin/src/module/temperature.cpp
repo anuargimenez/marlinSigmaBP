@@ -1511,17 +1511,17 @@ void Temperature::min_temp_error(const heater_id_t heater_id) {
               // Si está por encima del objetivo, activar Peltier
               pid_output = 1;
               switch(ee) {
-                  case 0: WRITE(63, LOW); break;
-                  case 1: WRITE(64, LOW); break;
-                  case 2: WRITE(4, LOW); break;
+                  case 0: analogWrite(21, 0); break;
+                  case 1: analogWrite(20, 0); break;
+                  case 2: analogWrite(63, 0); break;
               }
           } else {
               // Si está por debajo del objetivo, desactivar Peltier
               pid_output = 0;
               switch(ee) {
-                  case 0: WRITE(63, HIGH); break;
-                  case 1: WRITE(64, HIGH); break;
-                  case 2: WRITE(4, HIGH);; break;
+                  case 0: analogWrite(21, 255); break;
+                  case 1: analogWrite(20, 255); break;
+                  case 2: analogWrite(63, 255); break;
               }
           }
 
