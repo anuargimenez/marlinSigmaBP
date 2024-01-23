@@ -14,9 +14,13 @@ A pushbutton panel with switches has been added to prevent the peltier from oper
 
 The default pin layout of the board has been modified and the EXP3 pins have been used.
 
+![Rumba pins](https://github.com/anuargimenez/marlinSigmaBP/blob/master/captures/rumba_schem.PNG)
+
 ## Peltier Control
 
 Two **L298N modules** have been used to control 4 peltier cells simultaneously (3 for the extruders E0, E1 and E2 and 1 for the printing bed) and invert their polarity. A **7400 integrated circuit** is also added to invert the input signal to the module.
+
+![Rumba pins](https://github.com/anuargimenez/marlinSigmaBP/blob/master/captures/Peltier%20control.png)
 
 The temperature loop has been modified as follows (lines 1500-1535 in temperature.cpp): 
    
@@ -56,6 +60,7 @@ The temperature loop has been modified as follows (lines 1500-1535 in temperatur
 
 To control the valves, it was necessary to add **two power expander modules** controlled by the exp3 output pins. The other two are connected directly to the FAN0 and FAN1 outputs of the RUMBA. 
 
+![Rumba pins](https://github.com/anuargimenez/marlinSigmaBP/blob/master/captures/Valve%20control.PNG)
 
 ## Useful Gcode
 Here are some useful Gcode lines for using the printer:
