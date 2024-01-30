@@ -77,7 +77,7 @@ Here are some useful Gcode lines for using the printer:
 - **M106 P2 S255**: Turn on Fan2 (E2)
 - **M106 P2 S0**: Turn off Fan2 (E2)
 
-#### - Valves:
+#### - Valves (ALWAYS ADD M400 BEFORE THE M42 COMMAND TO AVOID BUFFERING PROBLEMS):
 - **M42 P7 S255**: Turn on Valve 0 (E0)
 - **M42 P7 S0**: Turn off Valve 0 (E0)
 - **M42 P4 S255**: Turn on Valve 1 (E1)
